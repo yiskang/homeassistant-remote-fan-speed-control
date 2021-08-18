@@ -144,7 +144,7 @@ Add `logger` to your `configuration.yaml`
 logger:
   default: warn
   logs:
-    homeassistant.components.python_script.remote_fan_speed_control: debug
+    homeassistant.components.python_script.remote_fan_speed_control.py: debug
 ```
 
 ## License
