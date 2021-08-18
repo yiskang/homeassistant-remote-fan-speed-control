@@ -1,4 +1,8 @@
 {
-  "name": "Fan Speed Control",
-  "render_readme": "true"
+  "name": "Remote Fan Speed Control",
+  "render_readme": "true",
+  "domains": [
+    "Remote",
+    "Fan"
+  ]
 }
