@@ -164,6 +164,7 @@ logger:
 ## Todo
 
 - [ ] Replace `input_test` with the [hass-variables](https://github.com/rogro82/hass-variables). See [here](https://www.reddit.com/r/homeassistant/comments/fw4me9/input_text_persisting_across_home_assistant/fmm8c5l?utm_source=share&utm_medium=web2x&context=3) for reference.
+- [ ] Evaluate replacement with the [pyscript](https://github.com/custom-components/pyscript)
 
 ## License
 
