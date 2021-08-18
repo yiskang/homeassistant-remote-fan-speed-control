@@ -136,8 +136,22 @@ script:
           command: b64:REMOTE_CODE_POWER_ON_OFF
 ```
 
-# Debug
+### Tips & Tricks
 
+- The state of `input_text.status_sampo_fan_speed` will be reset to the `initial` value each time your restart the HA server.
+
+- If you keep seeing this warning in your HA Logs, please try to adjust the value of `time.sleep` at [python_scripts/remote_fan_speed_control.py#L113](python_scripts/remote_fan_speed_control.py#L113). 
+
+    ```log
+    (WARNING) helpers/script.py - message first occurred at 0:00:00 AM and shows up xx times
+    ```
+
+Here are reference cases for you with my tests:
+
+- **HA installed on the MicroSD card**: try to use `time.sleep(1)`
+- **HA installed on the SSD with Agron case**: try to use `time.sleep(.75)`
+
+### Troubleshooting
 Add `logger` to your `configuration.yaml`
 
 ```yaml
@@ -146,6 +160,10 @@ logger:
   logs:
     homeassistant.components.python_script.remote_fan_speed_control.py: debug
 ```
+
+## Todo
+
+- [ ] Replace `input_test` with the [hass-variables](https://github.com/rogro82/hass-variables). See [here](https://www.reddit.com/r/homeassistant/comments/fw4me9/input_text_persisting_across_home_assistant/fmm8c5l?utm_source=share&utm_medium=web2x&context=3) for reference.
 
 ## License
 
