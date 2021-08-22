@@ -57,7 +57,7 @@ def check_speed(logger, speed):
                        )
         return False
 
-    if fan_entity.state is 'off':
+    if fan_entity.state == 'off':
         logger.debug('<remote_fan_speed_control> call fan on')
         hass.services.call('fan', 'turn_on',
                            {'entity_id': fan_entity_id})
@@ -112,7 +112,7 @@ if check_speed(logger, speed_percentage):
                     service_data)
             time.sleep(1)
 else:
-    if fan_entity.state is 'off':
+    if fan_entity.state == 'off':
         logger.debug('<remote_fan_speed_control> call fan on')
         hass.services.call('fan', 'turn_on',
                            {'entity_id': fan_entity_id})
