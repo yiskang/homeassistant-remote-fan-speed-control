@@ -50,7 +50,9 @@ For example, the speed range of your fan is from 1 to 7.
 |&nbsp;&nbsp;service_data_decrease.entity_id|true|string|The remote device entity to send IR signal. e.g., Broadlink|
 |&nbsp;&nbsp;service_data_decrease.command|true|string|The IR code for decreasing the fan speed|
 
-# Main config
+# The main thing
+
+- **Method 1**: Put IR code in the command directly
 ```yaml
 set_percentage:
   - service: python_script.remote_fan_speed_control
@@ -66,6 +68,41 @@ set_percentage:
       service_data_increase:
         entity_id: remote.broadlink
         command: b64:REMOTE_CODE_INCREASE_SPEED
+```
+
+- **Method 2**: Use command name learned from [remote.learn_command](https://www.home-assistant.io/integrations/broadlink/#learning-commands)
+```yaml
+set_percentage:
+  - service: python_script.remote_fan_speed_control
+    data_template:
+      percentage: "{{ percentage }}"
+      entity_id: fan.sampo_fan
+      speed_entity_id: input_text.status_sampo_fan_speed
+      speed_count: 7
+      service: remote.send_command
+      service_data_decrease:
+        entity_id: remote.broadlink
+        device: SampoFan
+        command: SpeedDown
+      service_data_increase:
+        entity_id: remote.broadlink
+        device: SampoFan
+        command: SpeedUp
+```
+
+The example code of learning IR code for the above:
+```yaml
+service: remote.learn_command
+data: 
+  entity_id: remote.broadlink
+  device: SampoFan
+  command: SpeedDown
+
+service: remote.learn_command
+data: 
+  entity_id: remote.broadlink
+  device: SampoFan
+  command: SpeedUp
 ```
 
 ## Template Fan config
@@ -164,7 +201,6 @@ logger:
 ## Todo
 
 - [ ] Replace `input_test` with the [hass-variables](https://github.com/rogro82/hass-variables). See [here](https://www.reddit.com/r/homeassistant/comments/fw4me9/input_text_persisting_across_home_assistant/fmm8c5l?utm_source=share&utm_medium=web2x&context=3) for reference.
-- [ ] Evaluate replacement with the [pyscript](https://github.com/custom-components/pyscript)
 
 ## License
 
